@@ -78,7 +78,7 @@ public class Board{
         }
         else
         {
-            actionLine = 2;
+            actionLine = 0;
             selected = board[actionLine][selection];
             board[actionLine][selection] = 0;
             for(i = selected; i >= 0 ; i--)

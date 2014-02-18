@@ -19,15 +19,30 @@ public class Players {
     public boolean playerAction(int playerNum)
     {
         boolean actionPossible = true;
-        int playerSelection;
+        boolean selectionValid = false;
+        int playerSelection = 0;
+
         String message = "Which box do you wish to select player " + playerNum + "?:";
         while(actionPossible)
         {
-            System.out.println(message);
-            playerSelection = keyboardInput.nextInt();
 
-            if(gameBoard.checkSelection(playerNum, playerSelection));
+
+            while(selectionValid != true)
             {
+                System.out.println(message);
+
+                playerSelection = keyboardInput.nextInt() - 1;
+                if(playerSelection < 6 && playerSelection >= 0)
+                {
+                    if (gameBoard.checkSelection(playerNum, playerSelection))
+                        selectionValid = true;
+                    else
+                        System.out.println("You selected a box with nothing in it try again");
+                }
+                else
+                    System.out.println("Selection out of bounds try again");
+            }
+
                 actionPossible = gameBoard.playerAction(playerNum, playerSelection);
                 if(gameBoard.checkFinish(playerNum))
                 {
@@ -38,8 +53,8 @@ public class Players {
                 {
                     message = "Your gem landed into your basket go again Player 1\n" +
                             "Which box do you wish to select player " + playerNum + "?:";
+                    selectionValid = false;
                 }
-            }
         }
         return false;
     }
