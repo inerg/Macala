@@ -25,6 +25,12 @@ public class Board{
         }
     }
 
+    /**
+     * Checks where the player has selected for if it is empty
+     * @param player Takes in the player that is getting checked.
+     * @param selection Takes in what the player has selected.
+     * @return Returns whether the action is valid or not. True means it is.
+     */
     public boolean checkSelection(int player, int selection)
     {
         if(player == 1 && board[1][selection] > 0)
@@ -35,6 +41,13 @@ public class Board{
             else
                 return false;
     }
+
+    /**
+     * Allows a player to take an action
+     * @param player Takes in the player that is getting checked.
+     * @param selection Takes in what the player has selected.
+     * @return Returns whether the player can take another action. True means they can do so.
+     */
     public boolean playerAction(int player, int selection)
     {
         int i;
@@ -163,6 +176,11 @@ public class Board{
         return canRepeat;
     }
 
+    /**
+     * Determines if the player gets the opposite sides gems.
+     * @param player Takes in the player that is getting checked.
+     * @param end Takes in what the ending point from the selection is.
+     */
     private void checkOther(int player, int end)
     {
         if(player == 1)
@@ -185,6 +203,11 @@ public class Board{
         }
     }
 
+    /**
+     * Checks if the game has finished
+     * @param player Takes in which player it is checking.
+     * @return Returns true if that player has won.
+     */
     public boolean checkFinish(int player)
     {
         int lineCheck;
@@ -212,6 +235,10 @@ public class Board{
         }
     }
 
+    /**
+     * Outputs the game board in its current state.
+     * @return A string of the current gameboard layout.
+     */
     public String toString()
     {
         String spacing = "%4s";

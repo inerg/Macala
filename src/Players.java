@@ -16,6 +16,11 @@ public class Players {
         keyboardInput = new Scanner(System.in);
     }
 
+    /**
+     * Handles the interaction with the player ensuring proper input.
+     * @param playerNum Which player is taking an action. 1 for player 1 and 2 for player 2.
+     * @return Returns whether the other player can take an action.
+     */
     public boolean playerAction(int playerNum)
     {
         boolean actionPossible = true;

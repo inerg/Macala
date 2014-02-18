@@ -15,6 +15,7 @@ public class main {
         int firstPlayer;
         int playerOne = 1;
         int playerTwo = 2;
+        int winner = 0;
 
         Random playerSelect = new Random();
 
@@ -37,13 +38,22 @@ public class main {
             if(firstPlayer == 1)
             {
                 gameFinished = play.playerAction(playerOne);
+                if(gameFinished)
+                    winner = playerOne;
                 gameFinished = play.playerAction(playerTwo);
+                if(gameFinished)
+                    winner = playerTwo;
             }
             else
             {
                 gameFinished = play.playerAction(playerTwo);
+                if(gameFinished)
+                    winner = playerTwo;
                 gameFinished = play.playerAction(playerOne);
+                if(gameFinished)
+                    winner = playerOne;
             }
         }
+            System.out.println("The Winner is Player " + winner);
     }
 }
