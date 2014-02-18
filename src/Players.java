@@ -51,10 +51,11 @@ public class Players {
                 }
                 if(actionPossible)
                 {
-                    message = "Your gem landed into your basket go again Player 1\n" +
+                    message = "Your gem landed into your basket go again Player " + playerNum + "\n" +
                             "Which box do you wish to select player " + playerNum + "?:";
                     selectionValid = false;
                 }
+            System.out.println(gameBoard.toString());
         }
         return false;
     }

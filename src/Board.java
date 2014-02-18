@@ -40,6 +40,8 @@ public class Board{
         int i;
         int c;
         int selected;
+        boolean selectWasZero = false;
+        boolean scored = false;
         int actionLine;
         boolean canRepeat = false;
         if(player == 1)
@@ -47,18 +49,32 @@ public class Board{
             actionLine = 1;
             selected = board[actionLine][selection];
             board[actionLine][selection] = 0;
-            for(i = selected; i < 6 ; i++)
+            if(selection == 5)
             {
-                board[actionLine][i] += 1;
-                selected--;
+                selection--;
+                selectWasZero = true;
+            }
+            for(i = selection + 1; i < 6 && selected != 0; i++)
+            {
+                if(selectWasZero)
+                {
+                    selectWasZero = false;
+                    selection++;
+                }
+                else
+                {
+                    board[actionLine][i] += 1;
+                    selected--;
+                }
                 if(i == 5 && selected != 0)
                 {
                     p1Score += 1;
+                    scored = true;
                     selected--;
-                    if(selected != 0)
+                    if(selected > 0)
                     {
                         actionLine = 0;
-                        for(c = 6; c >= 0 ; c--)
+                        for(c = 5; c >= 0 && selected != 0 ; c--)
                         {
                             board[actionLine][c] += 1;
                             selected--;
@@ -74,6 +90,14 @@ public class Board{
                         i = 6;
                     }
                 }
+
+            }
+            if(scored != true)
+            {
+                if(selection < 6)
+                    checkOther(1, i - 1);
+                else
+                    checkOther(1, i);
             }
         }
         else
@@ -81,18 +105,35 @@ public class Board{
             actionLine = 0;
             selected = board[actionLine][selection];
             board[actionLine][selection] = 0;
-            for(i = selected; i >= 0 ; i--)
+            if(selection == 0)
             {
-                board[actionLine][i] += 1;
-                selected--;
+                selection++;
+                selectWasZero = true;
+            }
+            for(i = selection - 1; i >= 0 && selected != 0 ; i--)
+            {
+
+
+                if(selectWasZero)
+                {
+                    selectWasZero = false;
+                    selection++;
+                }
+                else
+                {
+                    board[actionLine][i] += 1;
+                    selected--;
+                }
+
                 if(i == 0 && selected != 0)
                 {
                     p2Score += 1;
+                    scored = true;
                     selected--;
-                    if(selected != 0)
+                    if(selected > 0)
                     {
-                        actionLine = 0;
-                        for(c = 6; c > 1 ; c++)
+                        actionLine = 1;
+                        for(c = 0; c <= 6 && selected != 0 ; c++)
                         {
                             board[actionLine][c] += 1;
                             selected--;
@@ -108,10 +149,40 @@ public class Board{
                         i = -1;
                     }
                 }
+
+            }
+            if(scored != true)
+            {
+                if(selection > 0)
+                    checkOther(0, i + 1);
+                else
+                    checkOther(0, i);
             }
         }
 
         return canRepeat;
+    }
+
+    private void checkOther(int player, int end)
+    {
+        if(player == 1)
+        {
+            if(board[1][end] == 1)
+            {
+                p1Score += board[1][end] + board[0][end];
+                board[0][end] = 0;
+                board[1][end] = 0;
+            }
+        }
+        else
+        {
+            if(board[0][end] == 1)
+            {
+                p2Score += board[0][end] + board[1][end];
+                board[1][end] = 0;
+                board[0][end] = 0;
+            }
+        }
     }
 
     public boolean checkFinish(int player)
